@@ -3,42 +3,76 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Interacción con SimpleDEX</title>
-  <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
-  <script src="app.js" defer></script>
+  <title>Interacción con el SimpleDex</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>Interacción con SimpleDEX</h1>
+  <div class="container">
+    <!-- Título principal -->
+    <h1 style="text-align: center; margin-bottom: 30px;">Interacción con el SimpleDex</h1>
 
-  <!-- Sección para intercambiar A por B -->
-  <div>
-    <h2>Intercambiar A por B</h2>
-    <input type="number" id="amountInput" placeholder="Cantidad de A" step="0.1" min="0">
-    <button onclick="swapAforB()">Intercambiar A por B</button>
+    <div class="row">
+      <!-- Fila 1: Agregar y Retirar Liquidez -->
+      <div class="column">
+          <h3>Agregar Liquidez</h3>
+          <div class="input-group">
+              <input type="text" id="amountTokenA" placeholder="Cantidad Token A">
+              <input type="text" id="amountTokenB" placeholder="Cantidad Token B">
+              <button onclick="addLiquidity()">Agregar Liquidez</button>
+          </div>
+      </div>
+      <div class="column">
+          <h3>Retirar Liquidez</h3>
+          <div class="input-group">
+              <input type="text" id="amountAInput" placeholder="Cantidad de Token A para Retirar">
+              <input type="text" id="amountBInput" placeholder="Cantidad de Token B para Retirar">
+              <button onclick="removeLiquidity()">Retirar Liquidez</button>
+          </div>
+      </div>
+    </div>
+
+    <!-- Fila 2: Intercambio de Tokens (Swap) -->
+    <div class="row">
+      <div class="column full-width">
+          <h3 style="text-align: center; margin-bottom: 20px;">Intercambiar Tokens</h3>
+          <div class="swap-row">
+              <div class="column">
+                  <input type="text" id="amountInputA" placeholder="Cantidad Token A a intercambiar">
+                  <button onclick="swapAforB()">Intercambiar A por B</button>
+              </div>
+              <div class="column">
+                  <input type="text" id="amountInputB" placeholder="Cantidad Token B a intercambiar">
+                  <button onclick="swapBforA()">Intercambiar B por A</button>
+              </div>
+          </div>
+      </div>
+    </div>
+
+    <!-- Fila 3: Obtener Precio de los Tokens -->
+    <div class="row">
+      <div class="column">
+          <h3>Obtener Precio de los Tokens</h3>
+          <div class="price-group">
+              <button onclick="getPrice(tokenAAddress)">Obtener Precio de Token A</button>
+              <p id="priceDisplayA">El precio de Token A se mostrará aquí.</p>
+          </div>
+          <div class="price-group">
+              <button onclick="getPrice(tokenBAddress)">Obtener Precio de Token B</button>
+              <p id="priceDisplayB">El precio de Token B se mostrará aquí.</p>
+          </div>
+      </div>
+  
+      <!-- Fila 3: Obtener Precio de un Token por Dirección -->
+      <div class="column">
+          <h3>Obtener Precio de un Token por Dirección</h3>
+          <input type="text" id="tokenAddressInput" placeholder="Dirección del token">
+          <button onclick="getPrice(document.getElementById('tokenAddressInput').value)">Obtener Precio</button>
+          <p id="priceDisplayCustom">El precio de Token se mostrará aquí.</p>
+      </div>
+    </div>
   </div>
 
-  <!-- Sección para intercambiar B por A -->
-  <div>
-    <h2>Intercambiar B por A</h2>
-    <input type="number" id="amountInputB" placeholder="Cantidad de B" step="0.1" min="0">
-    <button onclick="swapBforA()">Intercambiar B por A</button>
-  </div>
-
-  <!-- Sección para agregar liquidez -->
-  <div>
-    <h2>Agregar liquidez</h2>
-    <input type="number" id="amountTokenA" placeholder="Cantidad de Token A" step="0.1" min="0">
-    <input type="number" id="amountTokenB" placeholder="Cantidad de Token B" step="0.1" min="0">
-    <button onclick="addLiquidity()">Agregar Liquidez</button>
-  </div>
-
-  <!-- Sección para retirar liquidez -->
-  <div>
-    <h2>Retirar liquidez</h2>
-    <input type="number" id="amountAInput" placeholder="Cantidad de Token A" step="0.1" min="0">
-    <input type="number" id="amountBInput" placeholder="Cantidad de Token B" step="0.1" min="0">
-    <button onclick="removeLiquidity()">Retirar Liquidez</button>
-  </div>
+  <script src="app.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.6.1/dist/web3.min.js"></script>
 </body>
 </html>
